@@ -1,2 +1,3 @@
-# Angular1_Tutorial_Project
+# Angular1 Tutorial
+
 Project for learning purposes
