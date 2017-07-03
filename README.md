@@ -9,7 +9,6 @@ Project for learning purposes
     - npm install express
     - npm install --save body-parser
     - npm install --save nedb
-
 ```
 ## Initialize Project
 ```
