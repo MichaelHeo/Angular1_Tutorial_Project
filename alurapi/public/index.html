@@ -12,9 +12,17 @@
     </head>
     <body ng-controller="FotosController"> <!-- Dizendo qual controller sera usado -->
         <div class="container">
-            <h1 class="text-center">Alurapic Project</h1>
-            <p>{{foto.texto}}</p>
-            <img class="img-responsive center-block" width="350" src="{{foto.url}}" alt="{{foto.titulo}}"> <!-- Abrimos uma "lacuna" na nossa viewi, e {{foto.url}} é uma "angular expression" -->
+            <div class="jumbotron">
+                <h1 class="text-center">Alurapic</h1>
+            </div>
+            <div ng-repeat="foto in fotos" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{foto.titulo}}</h3>
+                </div>
+                <div class="panel-body">
+                    <img class="img-responsive center-block" width="350" src="{{foto.url}}" alt="{{foto.titulo}}"> <!-- Abrimos uma "lacuna" na nossa viewi, e {{foto.url}} é uma "angular expression" -->
+                </div>
+            </div> <!-- fim panel -->
         </div> <!-- fim container -->        
     </body>
 </html>
