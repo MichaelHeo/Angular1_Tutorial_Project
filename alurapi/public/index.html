@@ -6,7 +6,11 @@
         <title>Alurapic</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/efeitos.css">
         <script src="js/lib/angular.min.js"></script> <!-- Importando o Angular pro projeto -->
+
+        <script src="js/lib/angular-animate.min.js"></script>
+
         <script src="js/main.js"></script> <!-- Importando o main.js que foi criado -->
         <script src="js/controllers/fotos-controller.js"></script> <!-- Importando o fotos-controller.js que foi criado -->
         <script src="js/directives/minhas-diretivas.js"></script> <!-- Importando o minhas-diretivas.js que foi criado -->
@@ -16,9 +20,22 @@
             <div class="jumbotron">
                 <h1 class="text-center">Alurapic</h1>
             </div>
-            <meu-painel ng-repeat="foto in fotos" titulo="{{foto.titulo}}">
-                <img class="img-responsive center-block" width="350" src="{{foto.url}}" alt="{{foto.titulo}}"> <!-- Abrimos uma "lacuna" na nossa viewi, e {{foto.url}} é uma "angular expression" -->
-            </meu-painel> <!-- fim panel -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <form>
+                        <input ng-model="filtro" ng-model-options="{debounce: 500}" class="form-control" placeholder="filtrar"> <!-- ng-model permite que a variabel filtro que esta no controller, receba o valor que for digitado! -->
+                    </form>
+                </div> <!-- fim col-md-12 -->
+            </div> <!-- fim row -->
+
+            <div class="row">
+                <meu-painel class="col-md-2 painel-animado" ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}"> <!-- | filter: filtro pega o valor da variavel filtro no controller e trabalha como um filtro -->
+                    <img class="img-responsive center-block" width="350" src="{{foto.url}}" alt="{{foto.titulo}}"> <!-- Abrimos uma "lacuna" na nossa viewi, e {{foto.url}} é uma "angular expression" -->
+                </meu-painel> <!-- fim panel -->
+
+            </div>
+
         </div> <!-- fim container -->        
     </body>
 </html>
