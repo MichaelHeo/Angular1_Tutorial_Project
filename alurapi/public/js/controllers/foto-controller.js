@@ -1,4 +1,4 @@
-angular.module('alurapic').controller('FotoController', function($scope, $http, $routeParams){
+angular.module('alurapic').controller('FotoController', function($scope, $routeParams, recursoFoto){
 
     // routeParams da acesso as rotas que estamos tentando acessar
 
@@ -6,14 +6,12 @@ angular.module('alurapic').controller('FotoController', function($scope, $http, 
     $scope.mensagem = '';
 
     if($routeParams.fotoId) {
-        $http.get('v1/fotos/' + $routeParams.fotoId)
-            .success(function(foto) {
-                $scope.foto = foto;
-            })
-            .error(function(error) {
-                console.log(error);
-                $scope.mensagem = 'Nao foi possivel obter a foto de ID ' + $routeParams.fotoId;
-            });
+        recursoFoto.get({fotoId: $routeParams.fotoId}, function(foto){
+            $scope.foto = foto;
+        }, function(error) {
+            console.log(error);
+            $scope.mensagem = 'Nao foi possivel obter a foto de ID ' + $routeParams.fotoId;
+        });
     }
 
     $scope.submeter = function() {
@@ -21,21 +19,17 @@ angular.module('alurapic').controller('FotoController', function($scope, $http, 
 
             if($scope.foto._id){
                 // Atualizando a foto com os novos dados!
-                $http.put('v1/fotos/' + $scope.foto._id, $scope.foto)
-                    .success(function() {
-                        $scope.mensagem = 'Foto alterado com sucesso!';
-                    })
-                    .error(function(erro) {
-                        console.log(erro);
-                        $scope.mensagem = 'Nao foi possivel alterar a foto ' + $scope.foto.titulo;
-                    });
+                recursoFoto.update({fotoId : $scope.foto._id}, $scope.foto, function(){
+                    $scope.mensagem = 'Foto alterado com sucesso!';
+                }, function(erro){
+                    console.log(erro);
+                    $scope.mensagem = 'Nao foi possivel alterar a foto ' + $scope.foto.titulo;
+                });
             } else {
-                $http.post('v1/fotos', $scope.foto)
-                    .success(function(){
+                recursoFoto.save($scope.foto, function(){
                         $scope.foto = {};
                         $scope.mensagem = "Foto cadastrada com sucesso!";
-                })
-                .error(function(error) {
+                }, function(error){
                     $scope.mensagem = "Nao foi possivel incluir a foto!";
                     console.log(error);
                 });

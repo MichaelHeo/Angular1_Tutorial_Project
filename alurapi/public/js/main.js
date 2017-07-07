@@ -1,4 +1,5 @@
-angular.module('alurapic', ['minhasDiretivas', 'ngAnimate', 'ngRoute']).config(function($routeProvider, $locationProvider){
+angular.module('alurapic', ['minhasDiretivas', 'ngAnimate', 'ngRoute', 'meusServicos'])
+.config(function($routeProvider, $locationProvider){
     // Configurando Rotas!
    
     // Permite que nao seja necessario o uso de /# na rota
