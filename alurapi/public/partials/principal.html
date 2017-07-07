@@ -24,7 +24,8 @@
     <meu-painel class="col-md-2 painel-animado" ng-repeat="foto in fotos | filter: filtro" titulo="{{foto.titulo}}"> <!-- | filter: filtro pega o valor da variavel filtro no controller e trabalha como um filtro -->
         <img class="img-responsive center-block" width="350" src="{{foto.url}}" alt="{{foto.titulo}}"> <!-- Abrimos uma "lacuna" na nossa viewi, e {{foto.url}} é uma "angular expression" -->
         <a class="btn btn-primary btn-block" href="fotos/edit/{{foto._id}}">Editar</a>
-        <button ng-click="remover(foto)" class="btn btn-danger btn-block">Remover</button>
+        <meu-botao-perigo acao="remover(foto)" nome="Remover">
+        </meu-botao-perigo>
     </meu-painel> <!-- fim panel -->
 
 </div>
