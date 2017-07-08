@@ -8,10 +8,12 @@ angular.module('meusServicos', ['ngResource'])
         }
     });
 })
-.factory('cadastroDeFotos', function(recursoFoto, $q) {
+.factory('cadastroDeFotos', function(recursoFoto, $q, $rootScope) {
     // $q retorna uma promessa
+    // Todos os Scopes herdam do rootScope. Ele eh o pai de todos os Scopes
 
     var servico = {};
+    var evento = 'fotoCadastrada';
 
     servico.cadastrar = function(foto) {
         return $q(function(resolve, reject) {
@@ -19,6 +21,7 @@ angular.module('meusServicos', ['ngResource'])
             // Reject - Mensagem de erro
             if(foto._id){
                 recursoFoto.update({fotoId: foto._id}, foto, function(){
+                    $rootScope.$broadcast(evento); // Criando um evento chamado 'fotoCadastrada' no Angular
                     resolve({
                         mensagem: 'Foto ' + foto.titulo + ' atualizado com sucesso!',
                         inclusao: false
@@ -31,6 +34,7 @@ angular.module('meusServicos', ['ngResource'])
                 });
             } else {
                 recursoFoto.save(foto, function(){
+                    $rootScope.$broadcast(evento); // Criando um evento chamado 'fotoCadastrada' no Angular
                     resolve({
                         mensagem : 'Foto ' + foto.titulo + ' incluida com sucesso!',
                         inclusao : true
